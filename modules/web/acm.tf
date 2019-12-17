@@ -1,7 +1,7 @@
 resource "aws_acm_certificate" "certificate" {
   provider                  = aws.us-east-1
-  domain_name               = "*.bitelio.com"
-  subject_alternative_names = ["bitelio.com"]
+  domain_name               = "*.${var.domain}"
+  subject_alternative_names = [var.domain]
   validation_method         = "DNS"
 
   lifecycle {

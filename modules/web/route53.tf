@@ -1,8 +1,8 @@
 resource "aws_route53_zone" "primary" {
-  name = "bitelio.com"
+  name = var.domain
 }
 
-resource "aws_route53_record" "bitelio-com-A" {
+resource "aws_route53_record" "A-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = ""
   type    = "A"
@@ -14,7 +14,7 @@ resource "aws_route53_record" "bitelio-com-A" {
   }
 }
 
-resource "aws_route53_record" "www-bitelio-com-A" {
+resource "aws_route53_record" "www-A-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = "www"
   type    = "A"
@@ -37,7 +37,7 @@ resource "aws_route53_record" "caa" {
   ]
 }
 
-resource "aws_route53_record" "bitelio-com-MX" {
+resource "aws_route53_record" "MX-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = ""
   type    = "MX"
@@ -48,7 +48,7 @@ resource "aws_route53_record" "bitelio-com-MX" {
   ]
 }
 
-resource "aws_route53_record" "bitelio-com-TXT" {
+resource "aws_route53_record" "TXT-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = ""
   type    = "TXT"
@@ -59,7 +59,7 @@ resource "aws_route53_record" "bitelio-com-TXT" {
   ]
 }
 
-resource "aws_route53_record" "bitelio-com-mail" {
+resource "aws_route53_record" "mail-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = "mail"
   type    = "CNAME"
@@ -67,7 +67,7 @@ resource "aws_route53_record" "bitelio-com-mail" {
   records = ["privateemail.com"]
 }
 
-resource "aws_route53_record" "bitelio-com-autodiscover" {
+resource "aws_route53_record" "autodiscover-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = "autodiscover"
   type    = "CNAME"
@@ -75,7 +75,7 @@ resource "aws_route53_record" "bitelio-com-autodiscover" {
   records = ["privateemail.com"]
 }
 
-resource "aws_route53_record" "bitelio-com-autoconfig" {
+resource "aws_route53_record" "autoconfig-record" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = "autoconfig"
   type    = "CNAME"

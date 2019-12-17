@@ -1,18 +1,18 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled             = true
-  aliases             = ["bitelio.com"]
+  aliases             = [var.domain]
   default_root_object = "index.html"
   is_ipv6_enabled     = true
 
   origin {
-    domain_name = aws_s3_bucket.bitelio-com.bucket_regional_domain_name
-    origin_id   = "S3-bitelio"
+    domain_name = aws_s3_bucket.web-bucket.bucket_regional_domain_name
+    origin_id   = "S3-${var.domain}"
   }
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "S3-bitelio"
+    target_origin_id       = "S3-${var.domain}"
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
@@ -51,19 +51,4 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     response_code      = 404
     response_page_path = "/404.html"
   }
-}
-
-resource "aws_cloudfront_distribution" "s3_distribution" {
-  enabled             = true
-  aliases             = ["www.bitelio.com"]
-  is_ipv6_enabled     = true
-
-  origin {
-    domain_name = aws_s3_bucket.www-bitelio-com.bucket_regional_domain_name
-    origin_id   = "S3-www-bitelio"
-  }
-}
-
-module "cloudfront" {
-  site = "bitelio-com"
 }
