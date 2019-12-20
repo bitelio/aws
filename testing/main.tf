@@ -5,7 +5,7 @@ resource "aws_iam_account_alias" "alias" {
 }
 
 module "web" {
-  source = "../modules/web"
-  domain = "bitelio.dev"
+  source  = "../modules/web"
+  domain  = "bitelio.dev"
   account = var.testing_account_id
 }

@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "bitelio" {
         "arn:aws:iam::${var.testing_account_id}:root",
         "arn:aws:iam::${var.production_account_id}:root",
       ]
-      type        = "AWS"
+      type = "AWS"
     }
   }
 
