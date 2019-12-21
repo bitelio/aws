@@ -20,8 +20,8 @@ resource "aws_iam_role" "lambda" {
 
 data "archive_file" "lambda_function" {
   type        = "zip"
-  source_file = "${path.module}/index.js"
-  output_path = "${path.module}/functions/${var.account}_http_headers.zip"
+  source_file = "${path.module}/lambda/index.js"
+  output_path = "${path.module}/lambda/${var.account}_http_headers.zip"
 }
 
 resource "aws_lambda_function" "http_headers" {
