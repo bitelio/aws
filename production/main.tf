@@ -5,6 +5,10 @@ resource "aws_iam_account_alias" "alias" {
   account_alias = "bitelio-production"
 }
 
+module "common" {
+  source = "../modules/common"
+}
+
 module "web" {
   source    = "../modules/web"
   domain    = "bitelio.com"
