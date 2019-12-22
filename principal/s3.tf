@@ -45,41 +45,4 @@ data "aws_iam_policy_document" "bitelio" {
       variable = "s3:x-amz-server-side-encryption"
     }
   }
-
-  statement {
-    actions   = ["s3:ListBucket"]
-    effect    = "Allow"
-    resources = ["arn:aws:s3:::bitelio"]
-
-    principals {
-      identifiers = [
-        "arn:aws:iam::${var.testing_account_id}:root",
-        "arn:aws:iam::${var.production_account_id}:root",
-      ]
-
-      type = "AWS"
-    }
-  }
-
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-    ]
-
-    effect = "Allow"
-    resources = [
-      "arn:aws:s3:::bitelio/testing",
-    ]
-
-    principals {
-      identifiers = [
-        "arn:aws:iam::${var.testing_account_id}:root",
-        "arn:aws:iam::${var.production_account_id}:root",
-      ]
-      type = "AWS"
-    }
-  }
-
-
 }
