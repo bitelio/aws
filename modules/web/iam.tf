@@ -40,3 +40,30 @@ resource "aws_iam_role_policy" "cd_web" {
   role   = aws_iam_role.cd_web.id
   policy = data.aws_iam_policy_document.cd_web.json
 }
+
+data "aws_iam_policy_document" "web-bucket" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.web-bucket.arn}/*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+    }
+  }
+
+  statement {
+    actions   = ["s3:ListBucket"]
+    resources = ["${aws_s3_bucket.web-bucket.arn}"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "web-bucket" {
+  bucket = aws_s3_bucket.web-bucket.id
+  policy = data.aws_iam_policy_document.web-bucket.json
+}
