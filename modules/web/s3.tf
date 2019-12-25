@@ -14,3 +14,19 @@ resource "aws_s3_bucket" "redirect" {
     redirect_all_requests_to = "https://${var.domain}"
   }
 }
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "logs.${var.domain}"
+
+  lifecycle_rule {
+    id      = "logs-expiration"
+    prefix  = ""
+    enabled = true
+
+    expiration {
+      days = 30
+    }
+
+    abort_incomplete_multipart_upload_days = 7
+  }
+}
