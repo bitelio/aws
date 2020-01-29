@@ -15,6 +15,11 @@ resource "aws_s3_bucket" "bitelio" {
     }
   }
 
+  logging {
+    target_bucket = "bitelio"
+    target_prefix = "log/"
+  }
+
   policy = data.aws_iam_policy_document.bitelio.json
 }
 

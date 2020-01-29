@@ -29,4 +29,13 @@ resource "aws_s3_bucket" "logs" {
 
     abort_incomplete_multipart_upload_days = 7
   }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.s3.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
 }
